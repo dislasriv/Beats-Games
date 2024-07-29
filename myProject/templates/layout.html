@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title%}
+            Layout.html TITLE
+        {% endblock %}
+
+    </title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"">
+    <script src="{% static 'js/main.js' %}" defer></script>
+</head>
+<body>
+    <nav>
+        <a href = "/about"> ABOUT </a>
+        <a href = "/"> HOME </a>
+        <a href = "/posts"> POSTS </a>
+    </nav>
+
+    <main>
+        {% block content %}
+            THIS IS A DEFAULT.
+        {% endblock %}
+    </main>
+
+</body>
+</html>

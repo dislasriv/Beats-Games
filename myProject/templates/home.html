@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COBSON'S HOUSE</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}"">
-    <script src="{% static 'js/main.js' %}" defer></script>
-</head>
-<body>
-    <h1>HELLO!!!!!!!!!!!!!!!!!!!!!!!! :D</h1>
-    <p> About this place... <a href = "/about">info</a></p>
-</body>
-</html>
+{% extends "layout.html" %}
+
+{%block title%}
+    COBSON'S HOUSE
+{% endblock %}
+
+{% block content%}
+    <h1> HELLO!!!!!!!!!!!!!!!!!!!!!!!!! :D<h1>
+    <p> LOOK AT MY ABOUT PAGE <a href="/about"> LMAO </a> </p>
+{% endblock %}

@@ -5,10 +5,32 @@
 }
 
 body{
-    background-color: aqua;
+    background-color: rgb(42, 42, 42);
     text-align: center;
     nav-down: auto;
     font-size: 3rem;
+    flex-flow:column;
+}
+
+nav{
+    background-color: rgb(219, 0, 0);
+    text-align: left;
+    font-size: 2rem;
+    padding: .75rem;
+    font-family: fantasy;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+a:hover{
+    opacity: 0.5;
+}
+
+main{
+    background-position: 2cm;
 }
 
 h1,p {
