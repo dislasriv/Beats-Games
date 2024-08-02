@@ -10,15 +10,30 @@
         {% endblock %}
 
     </title>
-    <link rel="stylesheet" href="{% static 'css/piss.css' %}">
     <script src="{% static 'js/main.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+    
+
+    {% block cssLinks %}
+
+    {% endblock %}
+
+    {% block jsLinks %}
+
+    {% endblock %}
 
 </head>
 <body>
     <nav>
-        <a href = "/about"> ABOUT </a>
-        <a href = "/"> HOME </a>
-        <a href = "{% url 'posts:list'%}"> POSTS </a>
+        <a href = "/"> HOME </a> |
+        <a href = "/about"> ABOUT </a> |
+        <a href = "{% url 'posts:list'%}"> POSTS </a> 
+        
+        <a class= "account-links" href = "{% url 'users:register'%}"> REGISTER </a> 
+        <p class= "account-links">|</p>
+        <a class= "account-links" href = "{% url 'users:login'%}"> LOGIN </a> 
+
+        
     </nav>
 
     <main>

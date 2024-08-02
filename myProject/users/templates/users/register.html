@@ -1,0 +1,22 @@
+{% extends "layout.html"%}
+{% load static %}
+
+
+
+{% block title%}
+    Register
+{%endblock%}
+
+{% block cssLinks%}
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block content%}
+    <h1> REGISTER </p>
+
+    <form class="form-w-validation" method = "post" action = ""> 
+            {% csrf_token %}
+            {{form}}
+            <input class="form-submit" type = "Submit">
+    </form>
+{%endblock%}

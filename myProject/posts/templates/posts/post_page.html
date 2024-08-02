@@ -1,11 +1,17 @@
 {% extends "layout.html"%}
+{% load static %}
+
 
 {% block title%}
     {{this_post.title}}
 {%endblock%}
 
+{% block cssLinks%}
+    <link rel="stylesheet" href="{% static 'css/posts.css' %}">
+{%endblock%}
+
 {% block content%}
-    <img src={{this_post.banner.url}} alt = {{post.title}} class = "banner"></img>
+    <img class = "banner" src={{this_post.banner.url}} alt={{post.title}} ></img>
     <h2>  {{this_post.title}} </h2>
     <h5> {{this_post.date}} </h5>
     <p>{{this_post.body}}</p>
