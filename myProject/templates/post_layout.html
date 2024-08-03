@@ -1,0 +1,15 @@
+{% extends "layout.html"%}
+{% load static %}
+
+{% block cssLinks%} 
+    <link rel="stylesheet" href="{% static 'css/posts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{%endblock%}
+
+{% block appLayout%}
+    <!-- Add main posts app layout here -->
+    <a class="posts-app-layout" href = {% url "posts:new-post" %}> Make a post! </a>
+
+    <br>
+    <br>
+{% endblock %}
