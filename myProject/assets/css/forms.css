@@ -1,0 +1,51 @@
+/*
+FORM SHIT
+*/
+.form-w-validation{
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 1rem;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    gap: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-w-validation div{
+    padding:.5rem;
+}
+
+.form-w-validation ul{
+    list-style: none;
+}
+
+.form-w-validation input{
+    width: 300px;
+}
+
+.form-submit {
+    padding: 0.5rem;
+    gap: 1rem;
+    border-radius: 10px;
+    max-width: 125px;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+}
+
+/*
+    These are classes from Django's user creation form.
+*/
+.helptext ul {
+    list-style-type: none;
+}
+
+.helptext {
+    padding:.5rem;
+    font-size: 1rem;
+    margin-left: 1rem;
+    color:red;
+}

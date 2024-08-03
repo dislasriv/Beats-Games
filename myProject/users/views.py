@@ -1,7 +1,7 @@
 from http.client import HTTPResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login 
+from django.contrib.auth import login, logout 
 
 # Create your views here.
 def register(request):
@@ -31,6 +31,12 @@ def login_view(request):
       #if form is valid, try logging in
       if form.is_valid():
           login(request, form.get_user())
+        
+          # if the next paramater has been submitted by the login form (see login.html), go to the URL it specifies.
+          if 'next' in request.POST:
+              return redirect(request.POST.get('next'))
+          
+          # else redirect to home
           return redirect("/")
       
     #if GET load page
@@ -39,3 +45,9 @@ def login_view(request):
 
     #render login.html, will show errors if login was not valid
     return render(request, 'users/login.html', {'form':form})
+
+
+def logout_view(request):
+    if request.method == "POST":
+        logout(request)
+        return redirect('/')

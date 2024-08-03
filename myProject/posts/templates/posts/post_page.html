@@ -1,4 +1,4 @@
-{% extends "layout.html"%}
+{% extends "post_layout.html"%}
 {% load static %}
 
 
@@ -11,8 +11,11 @@
 {%endblock%}
 
 {% block content%}
-    <img class = "banner" src={{this_post.banner.url}} alt={{post.title}} ></img>
-    <h2>  {{this_post.title}} </h2>
-    <h5> {{this_post.date}} </h5>
-    <p>{{this_post.body}}</p>
+    <section>
+        <img class = "banner" src={{this_post.banner.url}} alt={{post.title}} ></img>
+        <h2>  {{this_post.title}} </h2>
+        <h5> {{this_post.date}} </h5>
+        <p>{{this_post.body}}</p>
+        <p> <b>Created By:</b> {{this_post.author}}</p>
+    </section>
 {%endblock%}
