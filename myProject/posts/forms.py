@@ -1,7 +1,7 @@
 from django import forms 
 from . import models
 
-class CreatePost(forms.ModelForm):
+class CreatePlaylist(forms.ModelForm):
     class Meta:
-        model = models.Post
-        fields = ['title','body','slug','banner']
+        model = models.Playlist
+        fields = ['title','body','banner']
