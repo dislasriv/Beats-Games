@@ -28,7 +28,6 @@ urlpatterns = [
     path('', views.homePage),
     path('about/', views.about),
     path('posts/', include('posts.urls')) ,  
-    path('topSongs/', include('topSongs.urls')),   
     path('users/', include('users.urls'))   
 ]
 
