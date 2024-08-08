@@ -11,6 +11,7 @@ def main():
     
     try:
         playlist = spotify.playlist("20g1GYEqzeiD8IMpSMj21J")
+        print(playlist)
         return playlist
     except spotipy.exceptions.SpotifyException as e:
         print(f"Error: {e}")

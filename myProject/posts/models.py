@@ -3,10 +3,14 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Playlist(models.Model):
+    # Fields taken from Spotify API callback.
     title = models.CharField(max_length=50)
-    body = models.TextField()
+    # The spotify playlist bio.
+    caption = models.CharField(max_length=50, default = "")
+    # Why its good for X game.
+    description = models.TextField(default="Why is this playlist awesome for this game?")
     banner = models.ImageField(default="fallback.jpg", blank=True)
-    playlistId = models.CharField(max_length=200, default = "ERROR")
+    playlistId = models.CharField(max_length=200, default = "")
 
     #static fields
     slug = models.SlugField()

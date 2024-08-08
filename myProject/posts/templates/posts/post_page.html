@@ -14,8 +14,10 @@
     <section>
         <img class = "banner" src={{this_post.banner.url}} alt={{post.title}} ></img>
         <h2>  {{this_post.title}} </h2>
+        <p>{{this_post.caption}}</p>
         <h5> {{this_post.date}} </h5>
-        <p>{{this_post.body}}</p>
+        <p>{{this_post.description}}</p>
+        
         <p> <b>Created By:</b> {{this_post.author}}</p>
     </section>
 {%endblock%}

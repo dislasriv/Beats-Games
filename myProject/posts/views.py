@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Playlist
 from django.contrib.auth.decorators import login_required
-from . import forms
+from . import forms, helpers
 
 # Create your views here.
 def posts_list(request):
@@ -20,12 +20,18 @@ def new_post(request):
         form = forms.CreatePlaylist(request.POST, request.FILES)
 
         if form.is_valid():
-            #save post
-            newpost = form.save(commit=False)
-            newpost.author = request.user
-            newpost.slug = newpost.title.replace(" ", "-")
-            newpost.save()
-            return redirect('/posts/')
+            #save playlist
+            newPlaylist = form.save(commit=False)
+            newPlaylist.author = request.user
+            # call helper function that
+            validPlaylist = helpers.makePlaylistFromForm(newPlaylist.playlistId, newPlaylist)
+            print("i oopsed")
+
+            # if complilation of playlist went okay redirect to posts, else TODO: redirect to error page
+            if validPlaylist:
+                return redirect('/posts/')
+            # else refresh page
+            return redirect('/posts/new-post')
     else: 
         form = forms.CreatePlaylist()
     return render(request, 'posts/new_post.html', {'form':form})
