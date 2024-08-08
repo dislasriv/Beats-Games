@@ -11,7 +11,7 @@ scope = 'playlist-read-private'
 # EFFECTS: Creates and saves a new instance of .models.Playlist to the database.
 #          returns false if failure, true if success.
 def makePlaylistFromForm(playlistId, playlistModel):
-    spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(scope="playlist-read-private"))
+    spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=""))
 
     try:
         # TODO: Program freezes at this function, starts randomly generating the home page, NO IDEA
