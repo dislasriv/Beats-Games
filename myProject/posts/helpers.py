@@ -28,7 +28,7 @@ def makePlaylistFromForm(playlistId, playlistModel):
         return True
     
     except spotipy.exceptions.SpotifyException as e:
-        print("the program has failed")
+        print("the program has failedd")
         return False
     
 
