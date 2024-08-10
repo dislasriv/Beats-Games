@@ -6,10 +6,11 @@ class Playlist(models.Model):
     # Fields taken from Spotify API callback.
     title = models.CharField(max_length=50)
     # The spotify playlist bio.
-    caption = models.CharField(max_length=50, default = "")
+    caption = models.TextField()
+    
     # Why its good for X game.
     description = models.TextField(default="Why is this playlist awesome for this game?")
-    banner = models.ImageField(default="fallback.jpg", blank=True)
+    banner = models.ImageField(default="fallback.jpg", blank=True, upload_to="playlistImages")
     playlistId = models.CharField(max_length=200, default = "")
 
     #static fields

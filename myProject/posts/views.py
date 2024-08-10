@@ -25,7 +25,6 @@ def new_post(request):
             newPlaylist.author = request.user
             # call helper function that
             validPlaylist = helpers.makePlaylistFromForm(newPlaylist.playlistId, newPlaylist)
-            print("i oopsed")
 
             # if complilation of playlist went okay redirect to posts, else TODO: redirect to error page
             if validPlaylist:

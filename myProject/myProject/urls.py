@@ -25,7 +25,13 @@ urlpatterns = [
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
     path('admin/', admin.site.urls),
-    path('', views.homePage),
+
+    #spotify paths
+    path('', views.spotify_login),
+    path('spotify_callback/', views.spotify_callback),
+
+    #app paths
+    path('home/',views.homePage ),
     path('about/', views.about),
     path('posts/', include('posts.urls')) ,  
     path('users/', include('users.urls'))   
