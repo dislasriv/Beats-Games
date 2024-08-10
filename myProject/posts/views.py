@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
+
+from .featureFiles import playlistGeneration
 from .models import Playlist
 from django.contrib.auth.decorators import login_required
-from . import forms, helpers
+from . import forms
 
 # Create your views here.
 def posts_list(request):
@@ -24,7 +26,7 @@ def new_post(request):
             newPlaylist = form.save(commit=False)
             newPlaylist.author = request.user
             # call helper function that
-            validPlaylist = helpers.makePlaylistFromForm(newPlaylist.playlistId, newPlaylist)
+            validPlaylist = playlistGeneration.makePlaylistFromForm(newPlaylist.playlistId, newPlaylist)
 
             # if complilation of playlist went okay redirect to posts, else TODO: redirect to error page
             if validPlaylist:

@@ -7,7 +7,7 @@ class Playlist(models.Model):
     title = models.CharField(max_length=50)
     # The spotify playlist bio.
     caption = models.TextField()
-    
+
     # Why its good for X game.
     description = models.TextField(default="Why is this playlist awesome for this game?")
     banner = models.ImageField(default="fallback.jpg", blank=True, upload_to="playlistImages")
@@ -18,6 +18,9 @@ class Playlist(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, default = None)
 
+    # dictionary with all songs (in dictionary format) organized.
+    songs = models.JSONField(default=dict)
+
     def __str__(self):
-        return "Post ToString:" + self.title
+        return self.title
 
