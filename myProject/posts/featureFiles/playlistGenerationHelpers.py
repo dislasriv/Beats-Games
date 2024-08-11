@@ -13,3 +13,8 @@ def slugifyPlaylistNames(playModel):
        playName = playName.replace(char, "")
 
     return playName.replace(" ", "-") + playModel.playlistId
+
+# MODIFIES: out array
+# EFFECTS: Comiples an array where each element is a JSON dict with relevant info about an artist on a track.
+def createArtistArray(trackInfo):
+    print(trackInfo)

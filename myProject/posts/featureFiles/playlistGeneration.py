@@ -3,6 +3,7 @@ import spotifyHelpers
 import spotipy
 from django.core.files.base import ContentFile
 from . import playlistGenerationHelpers
+import html
 
 # A collection of helper functions for the posts app
 #scope that our spotify client/api instance will use
@@ -20,7 +21,7 @@ def makePlaylistFromForm(playlistId, playlistModel):
         playlistModel.title = playlist['name']
         # saves playlsit image to image field
         saveImageToPlaylistFromUrl(playlistModel, playlist['images'][0]['url'])
-        playlistModel.caption = playlist['description']
+        playlistModel.caption = html.unescape(playlist['description'])
         playlistModel.slug = playlistGenerationHelpers.slugifyPlaylistNames(playlistModel)
         # Handles arrangement of songs
         playlistModel.songs = compilePlaylistSongs(playlist['tracks'])
@@ -68,7 +69,7 @@ def compilePlaylistSongs(api_result):
         # Spotify.next(current_api_result) works no matter your api result, so long as the JSON still has the
         # 'next' key visible.
 
-        # our SPOTIFY API instance keeps track of which link is next for a particular API call.
+        # our SPOTIFY API instance keeps track of which link (tracks) is next for a particular API call.
         api_result = spotifyHelpers.spotify.next(api_result)
 
     return out
