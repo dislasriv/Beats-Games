@@ -24,7 +24,14 @@
 
         <br>
         {% for thing in this_post.songs%}
-            <p> {{thing.name}} </p>
+
+            <p> {{thing.name}} 
+
+                {% if thing.type == 'episode'%}
+                    - {{thing.show}}
+                {% endif %}
+
+            </p>
         {% endfor %}
         
         
