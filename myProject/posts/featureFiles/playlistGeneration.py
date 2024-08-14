@@ -56,10 +56,22 @@ def compilePlaylistSongs(api_result):
             # the stuff inside the 'track' dict is what we want.
             trackInfo = itemJSON['track']
 
-            thisSong = {
-                #TODO: add song details
-                "name" : trackInfo['name'],
-            }
+            # on the off chance some songs have been deleted by spotify
+            if trackInfo == None:
+                continue
+            
+            # handle episodes/songs differently
+            if trackInfo['type'] == 'track':
+                thisSong = {
+                    #TODO: add song details
+                    "name" : trackInfo['name'],
+                }
+            else:
+                thisSong ={
+                    "type": trackInfo['type'],
+                    "name" : trackInfo['name'],
+                    "show" : trackInfo['show']
+                }
             out.append(thisSong)
 
         # set the api result to the data at the next URL under the original API request's ['tracks'] dict

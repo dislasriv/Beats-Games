@@ -14,6 +14,7 @@ def slugifyPlaylistNames(playModel):
 
     return playName.replace(" ", "-") + playModel.playlistId
 
+# REQUIRES: A trackObejct array (see API)
 # MODIFIES: out array
 # EFFECTS: Comiples an array where each element is a JSON dict with relevant info about an artist on a track.
 def createArtistArray(trackInfo):
