@@ -11,8 +11,8 @@ import html
 # REQUIRES: An HTTPRequest, playlist ID, and an instance of the Playlist model
 # MODIFIES: An instance of Models.playlist
 # EFFECTS: Creates and saves a new instance of .models.Playlist to the database.
-#          returns false if failure, true if success.
-def makePlaylistFromForm(playlistId, playlistModel):
+#          returns None if failure, new model if success.
+def compilePlaylist(playlistId, playlistModel):
 
     try:
         # Used to freeze cause acess token had not been stored for user
@@ -20,25 +20,24 @@ def makePlaylistFromForm(playlistId, playlistModel):
         # set fields
         playlistModel.title = playlist['name']
         # saves playlsit image to image field
-        saveImageToPlaylistFromUrl(playlistModel, playlist['images'][0]['url'])
+        playlistModel.bannerUrl = playlist['images'][0]['url']
         playlistModel.caption = html.unescape(playlist['description'])
         playlistModel.slug = playlistGenerationHelpers.slugifyPlaylistNames(playlistModel)
         # Handles arrangement of songs
         playlistModel.songs = compilePlaylistSongs(playlist['tracks'])
        
-        # saves model to db
-        playlistModel.save()
-        return True
+        # returns model
+        return playlistModel
     
     except spotipy.exceptions.SpotifyException as e:
-        return False
+        return None
 
-# REQUIRES: A Playlist model to be inputted as well as a valid URL (should always be valid and exist)
+# REQUIRES: A Playlist ImageFieldto be inputted as well as a valid URL (should always be valid and exist)
 # MODIFIES: model
 # EFFECTS: saves image to Playlist model's ImageField
-def saveImageToPlaylistFromUrl(model, url):
+def saveImageToPlaylistFromUrl(imageField, url, filename):
     imgDownload = genericHelpers.dowloadImageFromUri(url)
-    model.banner.save(model.playlistId, ContentFile(imgDownload))
+    imageField.save(filename, ContentFile(imgDownload))
 
 
 # REQUIRES: a spotify playlist returned by the API in JSON format.
@@ -56,7 +55,7 @@ def compilePlaylistSongs(api_result):
             # the stuff inside the 'track' dict is what we want.
             trackInfo = itemJSON['track']
 
-            # on the off chance some songs have been deleted by spotify
+            # on the off chance some songs have been deleted  (not just deactivated) by spotify??
             if trackInfo == None:
                 continue
             
@@ -66,6 +65,8 @@ def compilePlaylistSongs(api_result):
                     #TODO: add song details
                     "type": trackInfo['type'],
                     "name" : trackInfo['name'],
+                    "artists" : playlistGenerationHelpers.createArtistArray(trackInfo),
+                    "imageurl" : trackInfo['album']['images'][0]['url']
                 }
             else:
                 print(trackInfo)
@@ -75,7 +76,8 @@ def compilePlaylistSongs(api_result):
                 thisSong ={
                     "type": trackInfo['type'],
                     "name" : trackInfo['name'],
-                    "show" : trackInfo['artists'][0]['type']
+                    "show" : trackInfo['artists'][0]['type'],
+                    "imageurl" : trackInfo['album']['images'][0]['url']
                 }
             out.append(thisSong)
 

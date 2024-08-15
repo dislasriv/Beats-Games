@@ -15,5 +15,17 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+.artist-text {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size : .75rem;
+    color : rgb(173, 137, 137);
+    text-align: left;
+}
+
+.song-images {
+    max-width: 100px;
+    padding: 1rem;
+}
+
 
 

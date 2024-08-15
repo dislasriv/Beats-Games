@@ -10,7 +10,7 @@ class Playlist(models.Model):
 
     # Why its good for X game.
     description = models.TextField(default="Why is this playlist awesome for this game?")
-    banner = models.ImageField(default="fallback.jpg", blank=True, upload_to="playlistImages")
+    bannerUrl = models.TextField(default = "if youre seeing this there is an error, start at posts/models.py")
     playlistId = models.CharField(max_length=200, default = "")
 
     #static fields

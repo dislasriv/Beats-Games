@@ -12,26 +12,39 @@
 
 {% block content%}
     <section>
-        <img class = "banner" src={{this_post.banner.url}} alt={{post.title}} ></img>
+        <img class = "banner" src={{this_post.bannerUrl}} alt={{post.title}} ></img>
         <h2>  {{this_post.title}}  </h2>
         <p> <b>Created By:</b> {{this_post.author}}</p>
         <h5> {{this_post.date}} </h5>
         <br>
-
+       
         <p>{{this_post.caption}}</p>
         <br>
         <p>{{this_post.description}}</p>
 
         <br>
+        <hr>
+        <br>
         {% for thing in this_post.songs%}
 
-            <p> {{thing.name}} 
-
+            <p> 
+                <img class = "song-images" src = {{thing.imageurl}} alt = "Album art"> </img>
+                <br>
+                {{thing.name}} 
+                <br>
                 {% if thing.type == 'episode'%}
-                    - {{thing.show}}
+                    <span class="artist-text"> 
+                        <b> An episode of: {{thing.show}} </b> 
+                    </span>
+                {% else %}
+                    <span class="artist-text"> 
+                        <b> {{thing.artists}} </b>
+                    </span>
                 {% endif %}
-
+        
             </p>
+            <br>
+            <br>
         {% endfor %}
         
         

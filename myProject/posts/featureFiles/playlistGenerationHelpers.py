@@ -16,6 +16,10 @@ def slugifyPlaylistNames(playModel):
 
 # REQUIRES: A trackObejct array (see API)
 # MODIFIES: out array
-# EFFECTS: Comiples an array where each element is a JSON dict with relevant info about an artist on a track.
+# EFFECTS: Comiples a JSON string with the names of all artists in the order that trackInfo has them in
 def createArtistArray(trackInfo):
-    print(trackInfo)
+    out="("
+    for artistJSON in trackInfo['artists']:
+        out += artistJSON['name'] + ", "
+    # notation to cut off last two chars (substring)
+    return out[:-2] + ")"
