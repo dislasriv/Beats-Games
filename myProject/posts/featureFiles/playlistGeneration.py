@@ -63,10 +63,8 @@ def compilePlaylistSongs(api_result):
             if trackInfo['type'] == 'track':
                 thisSong = {
                     #TODO: add song details
-                    "type": trackInfo['type'],
                     "name" : trackInfo['name'],
                     "artists" : playlistGenerationHelpers.createArtistArray(trackInfo),
-                    "imageurl" : trackInfo['album']['images'][0]['url']
                 }
             else:
                 print(trackInfo)
@@ -74,11 +72,18 @@ def compilePlaylistSongs(api_result):
                 
                 # TODO: API reference for episodes is completely false, refer to objects returned to get data you want
                 thisSong ={
-                    "type": trackInfo['type'],
                     "name" : trackInfo['name'],
                     "show" : trackInfo['artists'][0]['type'],
-                    "imageurl" : trackInfo['album']['images'][0]['url']
                 }
+
+                # append shared keys/values between TrackObjects and EpisodeObjects
+                
+            # check that an album image is present
+            if(len(trackInfo['album']['images']) > 0):
+                thisSong['imageurl'] = trackInfo['album']['images'][0]['url']
+            # add type to dict
+            thisSong['type'] = trackInfo['type']
+
             out.append(thisSong)
 
         # set the api result to the data at the next URL under the original API request's ['tracks'] dict

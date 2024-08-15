@@ -26,3 +26,8 @@ def homePage(request):
 def about(request):
     #return HttpResponse("information about my page: creator is human waste!")
     return render(request, 'about.html')
+
+
+# Views with no URL
+def errorPage(request, message):
+    return render(request, 'error.html', {'error':message})

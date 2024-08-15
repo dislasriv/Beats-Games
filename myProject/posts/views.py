@@ -4,7 +4,7 @@ from .models import Playlist
 from django.contrib.auth.decorators import login_required
 from . import forms
 from .featureFiles import playlistGeneration
-
+import myProject.views as views
 
 # Create your views here.
 def posts_list(request):
@@ -28,9 +28,14 @@ def new_post(request):
             #save playlist
             newPlaylist = form.save(commit=False)
 
-            # check that this playlist hasn't already been posted
-            if(Playlist.objects.all().get(playlistId=newPlaylist.playlistId)):
-                return redirect('/posts/new-post')
+            # check that this playlist hasn't already been posted, if the try proceeds send to the error page.
+            try:
+                Playlist.objects.all().get(playlistId=newPlaylist.playlistId)
+                return views.errorPage(request, "This playlist has already been uploaded!")
+            except:
+                # do nothing, everything is working
+                pass
+                
             # else set it all up and post the playlist
             newPlaylist.author = request.user
             # call helper function that returns new playlist model object
@@ -41,8 +46,9 @@ def new_post(request):
                 # Push to the DB
                 compPlaylist.save()
                 return redirect('/posts/')
+            
             # else refresh page
-            return redirect('/posts/new-post')
+            return views.errorPage(request, "Playlist id was invalid or something went wrong with the Spotify API")
     else: 
         form = forms.CreatePlaylist()
     return render(request, 'posts/new_post.html', {'form':form})
