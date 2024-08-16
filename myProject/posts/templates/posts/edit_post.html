@@ -1,0 +1,28 @@
+{% extends "post_layout.html"%}
+{% load static %}
+
+
+{% block title%}
+    {{this_post.title}}
+{%endblock%}
+
+{% block appLayout%}
+    <!-- have nothing here we dont want the make_post button-->
+{%endblock%}
+
+
+{% block content%}
+    <section>
+        <a class="posts-app-layout" href={% url 'posts:list' %}> Back to post list </a>
+        <br>
+        <br>
+        <h1> Edit playlist details!</h1>
+
+        <form class="form-w-validation" method="post" action="{% url "posts:edit-post" playlistId=playlistId%}"  enctype="multipart/form-data">
+            {%csrf_token%}
+            {{form}}
+
+            <input class="form-submit" type="submit">
+        </form>
+    </section>
+{%endblock%}

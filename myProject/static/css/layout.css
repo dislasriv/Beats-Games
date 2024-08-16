@@ -8,7 +8,7 @@
     text-align: right;
     float:right;
     color:whitesmoke;
-    font-size: 2rem;
+    font-size: 1.5rem;
     display: block;
     margin: auto;
 }
@@ -17,12 +17,13 @@
     float: right;
     text-align: center;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding-top: .5rem;
 }
 
 nav{
     background-color: #f01616;
     text-align: left;
-    font-size: 2rem;
+    font-size: 1.5rem;
     padding: .75rem;
     font-family: fantasy;
 }

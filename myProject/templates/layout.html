@@ -25,9 +25,12 @@
 </head>
 <body>
     <nav>
-        <a href = "/"> HOME </a> |
+        <a  href = "/"> HOME </a> |
         <a href = "/about"> ABOUT </a> |
-        <a href = "{% url 'posts:list'%}"> PLAYLISTS </a> 
+        <a href = "{% url 'posts:list'%}"> RECENT </a> |
+        <a href = "{% url 'posts:user-playlists'%}"> YOUR PLAYLISTS </a> |
+        <a href = "{% url 'posts:user-playlists'%}"> GAMES </a> |
+        <a href = "{% url 'posts:list'%}"> SEARCH </a> 
         
 
         {% if not user.is_authenticated %}
@@ -36,6 +39,7 @@
             <a class= "account-links" href = "{% url 'users:login'%}"> LOGIN </a> 
 
         {% else %}
+            <p class="account-links"> Logged in as: {{user}} </p>
             <br>
             <form class = "layout-buttons" method = "post" action = "/users/logout/">
                 {% csrf_token %}

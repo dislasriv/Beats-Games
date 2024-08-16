@@ -12,6 +12,8 @@
 
 {% block content%}
     <section>
+        <a class="posts-app-layout" href={% url 'posts:edit-post' playlistId=this_post.playlistId %}> EDIT POST </a>
+        <br>
         <img class = "banner" src={{this_post.bannerUrl}} alt={{post.title}} ></img>
         <h2>  {{this_post.title}}  </h2>
         <p> <b>Created By:</b> {{this_post.author}}</p>
@@ -28,7 +30,12 @@
         {% for thing in this_post.songs%}
 
             <p> 
-                <img class = "song-images" src = {{thing.imageurl}} alt = "Album art"> </img>
+                {%if thing.imageurl != None %}
+                    <img class = "song-images" src = {{thing.imageurl}} alt = "Album art"> </img>
+                {% else %}
+                    <img style="max-width:125px;" src ="https://media.tenor.com/NpZyGNG3SLEAAAAM/this-content-is-not-available.gif"alt = "Album art"> </img>
+                {% endif %}
+
                 <br>
                 {{thing.name}} 
                 <br>
