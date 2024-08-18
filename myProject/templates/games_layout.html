@@ -1,0 +1,14 @@
+{% extends "layout.html"%}
+{% load static %}
+
+{% block cssLinks%} 
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{%endblock%}
+
+{% block appLayout%}
+    <!-- Add main posts app layout here -->
+    <a class="games-app-layout" href = {% url "games:new-game" %}> Register a game!</a>
+
+    <br>
+    <br>
+{% endblock %}

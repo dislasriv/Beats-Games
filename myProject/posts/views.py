@@ -25,12 +25,11 @@ def post_page(request, slug):
     post = Playlist.objects.all().order_by("-date").get(slug=slug)
 
     # refresh and compile playlist, 
-    post = playlistGeneration.compilePlaylist(post.playlistId, post)
-    # save refreshed playlist to DB
-    post.save()
+    playlistGeneration.compilePlaylist(post.playlistId, post)
+  
 
     #get post with particular slug, send it as the post we want to represent in the post template
-    return render(request, 'posts/post_page.html',{"this_post":post,})
+    return render(request, 'posts/post_page.html',{"this_post":Playlist.objects.all().order_by("-date").get(slug=slug),})
 
 
 @login_required(login_url="/users/login/")
@@ -87,7 +86,6 @@ def new_post(request):
             # if complilation of playlist went okay redirect to posts, else TODO: redirect to error page
             if compPlaylist != None:
                 # Push to the DB
-                compPlaylist.save()
                 return redirect('/posts/')
             
             # else refresh page

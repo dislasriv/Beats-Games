@@ -1,0 +1,20 @@
+{% extends "games_layout.html"%}
+{% load static %}
+
+{% block title %}
+    
+{% endblock %}
+
+{% block applayout%}
+
+{% endblock %}
+
+
+{% block content %}
+    <h1> Register a game from IGDB! </h1>
+    <form class="form-w-validation" method ="post" action="{% url 'games:new-game'%}" enctype="multipart/form-data">
+        {%csrf_token%}
+        {{form}}
+        <input class = "form-submit" type="submit">
+    </form>
+{% endblock %}

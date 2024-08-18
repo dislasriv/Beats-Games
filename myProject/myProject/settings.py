@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_rename_app',
     'posts',
-    'users'
+    'users',
+    'games'
 ]
 
 MIDDLEWARE = [

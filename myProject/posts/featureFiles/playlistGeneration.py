@@ -11,7 +11,7 @@ import html
 # REQUIRES: An HTTPRequest, playlist ID, and an instance of the Playlist model
 # MODIFIES: An instance of Models.playlist
 # EFFECTS: Creates and saves a new instance of .models.Playlist to the database.
-#          returns None if failure, new model if success.
+#          returns None if failure, edited/new model if success.
 def compilePlaylist(playlistId, playlistModel):
 
     try:
@@ -25,7 +25,8 @@ def compilePlaylist(playlistId, playlistModel):
         playlistModel.slug = playlistGenerationHelpers.slugifyPlaylistNames(playlistModel)
         # Handles arrangement of songs
         playlistModel.songs = compilePlaylistSongs(playlist['tracks'])
-       
+
+        playlistModel.save()
         # returns model
         return playlistModel
     
