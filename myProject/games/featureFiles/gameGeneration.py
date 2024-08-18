@@ -17,10 +17,23 @@ def compileGame(igdbId, gameModel):
     
     # else process and save the game to db!
     gameModel.title = gameResponse[0]['name']
+
     # get image using t_cover_big url and the image_id from IGDB
-    gameModel.coverUrl = "https://images.igdb.com/igdb/image/upload/t_cover_big/" + gameResponse[0]['cover']['image_id'] + ".jpg"
+    # not all games have cover imgs so try-catch
+    try:
+        gameModel.coverUrl = "https://images.igdb.com/igdb/image/upload/t_cover_big/" + gameResponse[0]['cover']['image_id'] + ".jpg"
+    except:
+        # leave null
+        pass
+
     # get time from unixtimestamp first_relase_date 
-    gameModel.releaseYear = genericHelpers.unixtimeToDate(gameResponse[0]['first_release_date']).strftime("%Y")
+    # not all games have relase years so try-catch
+    try:
+        gameModel.releaseYear = genericHelpers.unixtimeToDate(gameResponse[0]['first_release_date']).strftime("%Y")
+    except:
+        # leave NULL
+        pass
+
     # init associations field
     gameModel.associations = 0
     gameModel.save()

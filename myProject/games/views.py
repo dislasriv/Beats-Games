@@ -35,7 +35,7 @@ def new_game(request):
             newGame = gameGeneration.compileGame(newGame.igdbId, newGame)
 
             if newGame == None:
-                return render(projectWideViews.errorPage(request, "The game's ID was not valid."))
+                return projectWideViews.errorPage(request, "The game's ID was not valid.")
             return redirect('/games/')
         
     else:
