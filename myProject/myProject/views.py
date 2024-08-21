@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 import spotipy
 from spotipy import oauth2
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
-import spotifyHelpers
+import spotifyHelpers as spotifyHelpers
 
 # login to spotify directly
 def spotify_login(request):

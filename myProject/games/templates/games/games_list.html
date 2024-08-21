@@ -15,7 +15,7 @@
     {% for game in games%}
         <article class="game">
 
-            <a href="{% url 'posts:list'%}">
+            <a href="{% url 'posts:game-list' gameId=game.igdbId%}">
               
 
                 {% if game.coverUrl != ''%}

@@ -4,11 +4,11 @@ from . import models
 class CreatePlaylist(forms.ModelForm):
     class Meta:
         model = models.Playlist
-        fields = ['playlistId', 'description']
+        fields = ['playlistId', 'description', 'gameIds']
 
 # Form for customizing NON-SPOTIFY playlist data after model generation.
 class EditPlaylist(forms.ModelForm):
     class Meta:
         model = models.Playlist
         # Include only editable fields
-        fields = ['description']
+        fields = ['description', 'gameIds']

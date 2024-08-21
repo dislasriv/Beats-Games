@@ -1,13 +1,20 @@
-import genericHelpers
-import spotifyHelpers
-import spotipy
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.base import ContentFile
+import genericHelpers as genericHelpers
+import spotifyHelpers as spotifyHelpers
+import spotipy
+
 from . import playlistGenerationHelpers
 import html
+import exceptions
+from myProject import views as projectViews
+
+
 
 # A collection of helper functions for the posts app
 #scope that our spotify client/api instance will use
 
+# TODO: Error handling
 # REQUIRES: An HTTPRequest, playlist ID, and an instance of the Playlist model
 # MODIFIES: An instance of Models.playlist
 # EFFECTS: Creates and saves a new instance of .models.Playlist to the database.
@@ -23,6 +30,7 @@ def compilePlaylist(playlistId, playlistModel):
         playlistModel.bannerUrl = playlist['images'][0]['url']
         playlistModel.caption = html.unescape(playlist['description'])
         playlistModel.slug = playlistGenerationHelpers.slugifyPlaylistNames(playlistModel)
+        
         # Handles arrangement of songs
         playlistModel.songs = compilePlaylistSongs(playlist['tracks'])
 
@@ -39,6 +47,21 @@ def compilePlaylist(playlistId, playlistModel):
 def saveImageToPlaylistFromUrl(imageField, url, filename):
     imgDownload = genericHelpers.dowloadImageFromUri(url)
     imageField.save(filename, ContentFile(imgDownload))
+
+# REQUIRES: A valid HTTP request, A playlist instance and a set of PROPERLY inputted ids as params
+# MODIFIES: playlistInstance
+# EFFECTS: Handles errors for assigning gameIds to playlist and making the proper associations
+def handleGameIds(request, playlistInstance, gameIds):
+    try:
+       return playlistGenerationHelpers.associateGamesToPlaylist(playlistInstance, gameIds)
+
+    # if input wrong throw error page
+    except exceptions.FormInputFormatException as e:
+        return projectViews.errorPage(request, "Game Id list was not properly formatted, please use a comma separated list with no spaces and only numeric characters")
+    
+    # if not all ids are on the database
+    except ObjectDoesNotExist:
+        return projectViews.errorPage(request, "Not all IGDB ids inputted were registered to beats&games.")
 
 
 # REQUIRES: a spotify playlist returned by the API in JSON format.
