@@ -22,7 +22,7 @@ class Playlist(models.Model):
     songs = models.JSONField(default=dict)
 
     # Comma separated string of gameIds (with NO SPACES) that this playlist is associated with
-    gameIds = models.TextField(default="", blank=True)
+    gameIds = models.TextField(default="")
 
     def __str__(self):
         return self.title

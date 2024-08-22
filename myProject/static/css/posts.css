@@ -2,6 +2,25 @@
     padding-top: 1rem;
 }
 
+.posts-app-layout{
+    float: left;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+/* post specific stuff*/
+
+.post-game-association-bar {
+   text-align: left;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+   .post-game-association-image {
+        max-width: 100px;
+        padding-left: 1rem;
+       
+   }
+}
 
 .banner{
     display:inline-block;
@@ -10,10 +29,10 @@
     size: 2rem;
 }
 
-.posts-app-layout{
-    float: left;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+.post-list-banner {
+    max-width: 150px;
 }
+
 
 .artist-text {
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -22,7 +41,7 @@
     text-align: left;
 }
 
-.song-images {
+.playlist-song-images {
     max-width: 100px;
     padding: 1rem;
 }

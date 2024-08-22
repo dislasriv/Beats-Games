@@ -1,15 +1,13 @@
 import requests
 import genericHelpers as genericHelpers
+from . import igdbHelpers
 
 # REQUIRES: a STRING input (id) and an instance of the Game model as params.
 # MODIFIES: gameModel.
 # EFFECTS: fills out/refreshes the fields for the gameModel and pushes the changes/new game to the DB.
 def compileGame(igdbId, gameModel):
-    # get access token
-    token = requests.post("https://id.twitch.tv/oauth2/token?client_id=1f4zmb8fbzgrbslh2znny1tg1zfrxf&client_secret=kxromxpjrgdhu51fxljwjop9rwxtm5&grant_type=client_credentials").json()["access_token"]
-    
     # perform request to API to get game data
-    gameResponse = requests.post('https://api.igdb.com/v4/games', **{'headers': {'Client-ID': '1f4zmb8fbzgrbslh2znny1tg1zfrxf', 'Authorization': "Bearer " + token, 'Content-Type': 'application/json'},'data': 'fields id, name, cover.image_id, first_release_date; where id =' + igdbId +';'}).json()
+    gameResponse = igdbHelpers.getGameById(igdbId)
 
     # if ID is invalid one of the two following cases will proc
     if len(gameResponse) != 1 or not "name" in gameResponse[0]:
@@ -23,8 +21,9 @@ def compileGame(igdbId, gameModel):
     try:
         gameModel.coverUrl = "https://images.igdb.com/igdb/image/upload/t_cover_big/" + gameResponse[0]['cover']['image_id'] + ".jpg"
     except:
-        # leave null
-        pass
+        # set to content unavailable image
+        gameModel.coverUrl = "https://media.tenor.com/NpZyGNG3SLEAAAAM/this-content-is-not-available.gif"
+        
 
     # get time from unixtimestamp first_relase_date 
     # not all games have relase years so try-catch

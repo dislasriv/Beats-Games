@@ -7,16 +7,23 @@
 {% endblock %}
 
 
+
 {% block content%}
 <section>
     <h1> {{heading}} </h1>
+    <br>
 
     {% for post in posts%}
         <article class="post">
+            <a href ={% url 'posts:page' slug=post.slug %} >
+                <img class="post-list-banner" src={{post.bannerUrl}}> </img>
+            </a>
+
             <h2> 
-                <a href ={% url 'posts:page' slug=post.slug %} >{{post.title}} </a>
+                {{post.title}} 
             </h2>
             <p> {{post.date}}</p>
+            <br>
           
         </article>
     {%endfor%}

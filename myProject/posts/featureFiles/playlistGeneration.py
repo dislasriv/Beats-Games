@@ -57,8 +57,10 @@ def handleGameIds(request, playlistInstance, gameIds):
 
     # if input wrong throw error page
     except exceptions.FormInputFormatException as e:
-        return projectViews.errorPage(request, "Game Id list was not properly formatted, please use a comma separated list with no spaces and only numeric characters")
+        return projectViews.errorPage(request, "Game Id list was not properly formatted, please use a comma separated list with no spaces and only numeric characters.")
     
+    except exceptions.TooManyAssociatedGamesToPlaylist as e:
+         return projectViews.errorPage(request, "You can only associate your playlist with a maximum of 12 games.")
     # if not all ids are on the database
     except ObjectDoesNotExist:
         return projectViews.errorPage(request, "Not all IGDB ids inputted were registered to beats&games.")

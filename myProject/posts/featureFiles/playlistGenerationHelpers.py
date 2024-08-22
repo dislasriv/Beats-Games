@@ -35,34 +35,46 @@ def createArtistArray(trackInfo):
     #       else 
     #           throw error
 def associateGamesToPlaylist(playlistInstance, idString): 
+# INPUT VALIDATION SECTION
     legalChars = '1234567890,'
+    # account for spaces
+    idString = idString.replace(" ", "")
 
     # check that all chars are numeric or comma, ie: correct formatting
     for i in range(len(idString)):
         # get char
         char = idString[i]
 
-        # check if final char is not comma
+        # check if final char is not comma, if it is cut it
         if i == len(idString)-1 and idString[i] == ',':
-            raise exceptions.FormInputFormatException("Last character should not be a comma")
+            idString = idString[:-1]
 
         if char not in legalChars:
             raise exceptions.FormInputFormatException("Invalid idString")
     
-
-    # then for every id inputted add one association
+    # if format is correct, remove duplicates and check that length is <= 12
+    currentGameIds = set(idString.split(","))
+    if len(currentGameIds) > 12:
+        raise exceptions.TooManyAssociatedGamesToPlaylist("too many games")
+    
+# INPUT PROCESSING SECTION
+    # then for every id inputted (if any) add one association
     if len(idString) > 0:
-        currentGameIds = idString.split(",")
         games = []
         for gameId in currentGameIds:
-            thisGame = Game.objects.get(igdbId=gameId)
-            games.append(thisGame)
-            
+            games.append(Game.objects.get(igdbId=gameId))
+
+        # in order to remove dupes from idString
+        idString = ''
         # after confirming that all games exist add a new association and push to the DB
         for game in games:
-            print("game")
+            # reset idString
+            idString += game.igdbId+","
             game.associations += 1
             game.save()
+        # take last comma away
+        idString = idString[:-1]
+    print(playlistInstance.gameIds)
 
     # for every game id the player currently has associated, if any, reduce one association
     if len(playlistInstance.gameIds) > 0:

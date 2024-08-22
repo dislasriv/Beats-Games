@@ -12,10 +12,13 @@
 
 {% block content%}
     <section>
-        <a class="posts-app-layout" href={% url 'posts:edit-post' playlistId=this_post.playlistId %}> EDIT POST </a>
+        <a class="posts-app-layout" href={% url 'posts:edit-post' playlistId=this_post.playlistId %}> Edit Playlist </a>
         <br>
+
         <img class = "banner" src={{this_post.bannerUrl}} alt={{post.title}} ></img>
         <h2>  {{this_post.title}}  </h2>
+
+
         <p> <b>Created By:</b> {{this_post.author}}</p>
         <h5> {{this_post.date}} </h5>
         <br>
@@ -25,17 +28,29 @@
         <p>{{this_post.description}}</p>
 
         <br>
+
+        <p class = "post-game-association-bar"> 
+            <b>Associated with:</b>
+            {% for game in games %}
+                <a href = {% url 'posts:game-list' gameId=game.igdbId%}>
+                    {% if "images.igdb.com" in game.coverUrl %}
+                        <img class = "post-game-association-image" src = {{ game.coverUrl }}> </img>
+                    {% else %}
+                        <span style = "color: blanchedalmond"> {{game.title}}</span>
+                    {% endif %}
+                </a>
+            {% endfor %}
+        
+        </p>
+
+        <br>
         <hr>
         <br>
+        <!-- song list HTML -->
         {% for thing in this_post.songs%}
-
             <p> 
-                {%if thing.imageurl != None %}
-                    <img class = "song-images" src = {{thing.imageurl}} alt = "Album art"> </img>
-                {% else %}
-                    <img style="max-width:125px;" src ="https://media.tenor.com/NpZyGNG3SLEAAAAM/this-content-is-not-available.gif"alt = "Album art"> </img>
-                {% endif %}
-
+              
+                <img class = "playlist-song-images" src = {{thing.imageurl}} alt = "Album art"> </img>
                 <br>
                 {{thing.name}} 
                 <br>
