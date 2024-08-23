@@ -12,3 +12,6 @@ class EditPlaylist(forms.ModelForm):
         model = models.Playlist
         # Include only editable fields
         fields = ['description', 'gameIds']
+
+  
+

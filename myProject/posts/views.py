@@ -12,6 +12,9 @@ from .featureFiles import generalPlaylistHelpers
 # project imports
 import myProject.views as views
 
+# games app imports
+from games.models import Game
+
 # Note: posts_lists.html is an abstract HTML file for rendering all lists of posts, give a list of posts to render
 #       and a heading.
 # post list pages.
@@ -27,10 +30,12 @@ def user_posts_list(request):
 
 # TODO: Refactor to include game name
 # render only the posts having the relevant gameId in their list.
-# note if this function is called the id is valid.
+# INVARIANT: if this function is called the id is valid.
 def game_posts_list(request, gameId):
+    game = Game.objects.get(igdbId=gameId)
     return render(request, 'posts/posts_list.html', {'posts':Playlist.objects.filter(gameIds__contains=gameId),
-                                                     'heading': "Playlists for game"})
+                                                     'heading': "Playlists for " + game.title + " (" +game.releaseYear+")",
+                                                     'banner': game.coverUrl},)
 
 # other pages
 def post_page(request, slug):
@@ -48,6 +53,7 @@ def post_page(request, slug):
 def edit_post(request, playlistId):
     # if doesnt own playlist send to banworld
     playlistEditing = Playlist.objects.get(playlistId=playlistId)
+    
     if request.user != playlistEditing.author:
         return views.errorPage(request, "you didn't post this playlist!!!")
 
@@ -73,7 +79,8 @@ def edit_post(request, playlistId):
             return redirect('/posts/' + playlistEditing.slug)
 
     else:
-        form = forms.EditPlaylist()
+        # indicate that we are editing an instance to populate the fields by default, via the kwarg INSTANCE
+        form = forms.EditPlaylist(instance=playlistEditing)
     return render(request, "posts/edit_post.html", {'form':form,
                                                     'playlistId':playlistId})
 
