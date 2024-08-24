@@ -3,7 +3,7 @@
 
 
 {% block title%}
-    {{this_post.title}}
+    Edit playlist details
 {%endblock%}
 
 {% block appLayout%}
@@ -13,7 +13,7 @@
 
 {% block content%}
     <section>
-        <a class="posts-app-layout" href={% url 'posts:list' %}> Back to post list </a>
+        <a class="posts-app-layout" href={% url 'posts:page' slug=slug %}> Back to playlist </a>
         <br>
         <br>
         <h1> Edit playlist details!</h1>

@@ -93,8 +93,6 @@ def compilePlaylistSongs(api_result):
                     "artists" : playlistGenerationHelpers.createArtistArray(trackInfo),
                 }
             else:
-                print(trackInfo)
-                print()
                 
                 # TODO: API reference for episodes is completely false, refer to objects returned to get data you want
                 thisSong ={

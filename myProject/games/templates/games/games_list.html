@@ -9,39 +9,39 @@
 {% block content%}
 <section>
     <br>
-    <br>
     <h1> Registered Games </h1>
 
-    {% for game in games%}
-        <article class="game">
+    <div class="games-list">
+        {% for game in games %}
+            <div class = "games-list-element">
+                <a href="{% url 'posts:game-list' gameId=game.igdbId%}">
+                
 
-            <a href="{% url 'posts:game-list' gameId=game.igdbId%}">
-              
+                    {% if game.coverUrl != ''%}
+                        <img  src={{game.coverUrl}} alt="Cover image">
+                    {% else %}
+                        <img src ="https://media.tenor.com/NpZyGNG3SLEAAAAM/this-content-is-not-available.gif"alt = "Cover image"> </img>
+                    {% endif %}
+                </a>
 
-                {% if game.coverUrl != ''%}
-                    <img src={{game.coverUrl}} alt="Cover image">
-                {% else %}
-                    <img style="max-width:225px;" src ="https://media.tenor.com/NpZyGNG3SLEAAAAM/this-content-is-not-available.gif"alt = "Cover image"> </img>
-                {% endif %}
-            </a>
-
-            <h2> 
-                <!-- never null, this is the bare minimum to post a game on IGDB -->
-                {{game.title}}
-            </h2>
+                <h2 class="games-list-element-text"> 
+                    <!-- never null, this is the bare minimum to post a game on IGDB -->
+                    {{game.title}}
+                </h2>
 
 
-            <p> 
-                {% if game.releaseYear != ''%}
-                    ({{game.releaseYear}})
-                {% else %}
-                    (missing year)
-                {% endif %}
-                <br>
-                <span style=  "color: rgb(173, 137, 137)"> IGDB ID: {{game.igdbId}}</span>
-            </p>
-          
-        </article>
-    {%endfor%}
+                <p class="games-list-element-text"> 
+                    {% if game.releaseYear != ''%}
+                        ({{game.releaseYear}})
+                    {% else %}
+                        (missing year)
+                    {% endif %}
+                    <br>
+                    <span style=  "color: rgb(173, 137, 137)"> IGDB ID: {{game.igdbId}}</span>
+                </p>
+            </div>
+        {%endfor%}
+    </div>
+    
 </section> 
 {% endblock %}

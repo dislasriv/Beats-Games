@@ -74,7 +74,7 @@ def associateGamesToPlaylist(playlistInstance, idString):
             game.save()
         # take last comma away
         idString = idString[:-1]
-    print(playlistInstance.gameIds)
+ 
 
     # for every game id the player currently has associated, if any, reduce one association
     if len(playlistInstance.gameIds) > 0:

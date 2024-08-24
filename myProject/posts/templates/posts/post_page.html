@@ -12,7 +12,15 @@
 
 {% block content%}
     <section>
-        <a class="posts-app-layout" href={% url 'posts:edit-post' playlistId=this_post.playlistId %}> Edit Playlist </a>
+
+        {% if user == this_post.author %}
+            <br>
+            <a class="posts-app-layout" href={% url 'posts:edit-post' playlistId=this_post.playlistId %}> Edit Playlist </a>
+            <br>
+            <br>
+            <a class="posts-app-layout" href={% url 'posts:delete-post' playlistId=this_post.playlistId %}> Delete Playlist </a>
+        {% endif %}
+       
         <br>
 
         <img class = "banner" src={{this_post.bannerUrl}} alt={{post.title}} ></img>

@@ -28,7 +28,6 @@ def user_posts_list(request):
     return render(request, 'posts/posts_list.html', {'posts':Playlist.objects.filter(author=request.user),
                                                      'heading': "Your playlists"})
 
-# TODO: Refactor to include game name
 # render only the posts having the relevant gameId in their list.
 # INVARIANT: if this function is called the id is valid.
 def game_posts_list(request, gameId):
@@ -38,25 +37,23 @@ def game_posts_list(request, gameId):
                                                      'banner': game.coverUrl},)
 
 # other pages
+# TODO: bug, this shit runs twice??
 def post_page(request, slug):
     # get old post just to fish ID (this will never change)
-    post = Playlist.objects.all().order_by("-date").get(slug=slug)
+    post = Playlist.objects.get(slug=slug)
     # refresh and compile playlist, 
     post = playlistGeneration.compilePlaylist(post.playlistId, post)
-  
     #get post with particular slug, send it as the post we want to represent in the post template
     return render(request, 'posts/post_page.html',{'this_post':post,
                                                    'games': generalPlaylistHelpers.getGamesForPlaylist(post)})
 
 
 @login_required(login_url="/users/login/")
+# INVARIANT: user owns playlist when this view is activated
 def edit_post(request, playlistId):
     # if doesnt own playlist send to banworld
     playlistEditing = Playlist.objects.get(playlistId=playlistId)
     
-    if request.user != playlistEditing.author:
-        return views.errorPage(request, "you didn't post this playlist!!!")
-
     if request.method == 'POST':
         # TODO: if any file uploads are added to the form, add a request.FILES arg
         form = forms.EditPlaylist(request.POST)
@@ -82,7 +79,8 @@ def edit_post(request, playlistId):
         # indicate that we are editing an instance to populate the fields by default, via the kwarg INSTANCE
         form = forms.EditPlaylist(instance=playlistEditing)
     return render(request, "posts/edit_post.html", {'form':form,
-                                                    'playlistId':playlistId})
+                                                    'playlistId':playlistId,
+                                                    'slug':playlistEditing.slug})
 
 
 @login_required(login_url="/users/login/")
@@ -128,3 +126,20 @@ def new_post(request):
     else: 
         form = forms.CreatePlaylist()
     return render(request, 'posts/new_post.html', {'form':form})
+
+@login_required(login_url="/users/login/")
+# INVARIANT: user owns playlist when this view is activated
+def delete_post(request, playlistId):
+   
+   if request.method == 'POST':
+        playlist = Playlist.objects.get(playlistId=playlistId)
+        if request.POST.get('decision', 'no') == 'yes':
+            playlist = Playlist.objects.get(playlistId=playlistId)
+            playlist.delete()
+            return redirect('posts:user-list')
+        else:
+            # redirect pack to post c:
+            print(request.POST.get('decision', 'no'))
+            return redirect('posts:page', slug=playlist.slug)
+   else:   
+        return render(request, "posts/delete_post.html", {'playlistId': playlistId})

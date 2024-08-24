@@ -1,10 +1,32 @@
 {% extends "layout.html" %}
+{% load static %}
+
 
 {%block title%}
     About
 {% endblock %}
 
+{%block csslinks%}
+    <link rel="stylesheet" href="{% static 'css/infopages.css' %}">
+{% endblock %}
+
+
 {% block content%}
-    <h1> About MusicRecent <h1>
-    <p> GO HOME??? <a href="/"> LMAO </a> </p>
+    <br>
+    <br>
+    <h1> Welcome to Beats&Games <h1>
+    
+    <br>
+    <div>
+        <h6> What is this and why am I here? <h6>
+
+        <p class = "info-paragraphs"> Beats&Games is a music sharing platform for people who enjoy gaming with the right soundtrack to get them through a match. You can browse the games that users have registered to the site and check out the Spotify playlists that our registered users listen to while playing them. If you want, you can look them up on spotify and give them a try yourself whenever you're gaming next!
+            
+        If you would also like to participate and register new games or post your preferred playlists for them, create an account and join the fun today!
+
+        register games, post playlists connected to them, or simply browse freely. That's all there is to it, have fun!
+        </p>
+    </div>
+    
+    
 {% endblock %}
