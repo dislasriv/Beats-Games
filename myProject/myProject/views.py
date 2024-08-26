@@ -17,7 +17,7 @@ def spotify_callback(request):
     token_info = spotifyHelpers.sp_oauth.get_access_token(code)
     # record token to prevent further sign in popups.
     request.session['token_info'] = token_info
-    return redirect("/home/")
+    return redirect("/about/")
 
 def homePage(request):
     #return HttpResponse("Hello World!")

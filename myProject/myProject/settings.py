@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django_rename_app',
     'posts',
     'users',
-    'games'
+    'games',
+    'information'
 ]
 
 MIDDLEWARE = [
