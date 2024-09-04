@@ -1,5 +1,5 @@
 ## Beats & Games - Find your music, find your games
-- This repository holds the active development state of the project and is NOT representative of what the codebase will look like prior to and after deployment.
+This repository holds the active development state of the project and is NOT representative of what the codebase will look like prior to and after deployment.
 
 
 # What is this app?
